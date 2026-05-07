@@ -35,3 +35,33 @@ N/A para este projeto (não há suite de testes configurada).
 Manual Verification
 Iniciar o servidor utilizando npm start ou npm run start dentro do diretório backend.
 Utilizar um cliente HTTP (como Postman ou Insomnia) para testar o CRUD completo na rota de Pets (incluindo autenticação com Token JWT e upload multipart/form-data para as imagens).
+
+# Walkthrough: Avaliação de Pets Implementada
+Concluímos a avaliação referente a criação, controle e adoção de Pets neste projeto. Abaixo detalho tudo que foi feito.
+
+## O que será implementado
+### 1. Rotas de Pets (PetRoutes.js)
+Configuramos todas as rotas listadas na tarefa para dar suporte à manipulação de Pets, associadas ao PetController. Importamos os middlewares adequados para segurança (Validação de Token) e funcionalidades adicionais (Upload Múltiplo de Imagens).
+
+### 2. Integração no Servidor (index.js)
+Adicionamos o módulo de rotas PetRoutes no servidor Express (index.js), sob o endpoint /pets.
+
+### 3. Controlador de Pets (PetController.js)
+Implementamos todos os métodos do CRUD, bem como a lógica de adoções (onde aplicável):
+
+create: Realiza validações (obrigando campos como name, age, weight, color), vincula as imagens e também o usuário autenticado que está realizando o cadastro. Salva o status do Pet automaticamente como available: true.
+getAll: Resgata todos os Pets ordenados por data de criação (-createdAt).
+getAllUserPets e getAllUserAdoptions: Filtram os pets onde o usuário logado é o respectivo dono (user._id) ou o adotante da visita agendada (adopter._id).
+getPetById e removePetById: Operações via Parâmetro (ID) com validações adicionais de formato do Object ID do MongoDB para evitar crash na aplicação.
+updatePet: Método PATCH que lida com modificação nos dados do formulário e também substituição/adição de novas imagens caso enviadas.
+schedule e concludeAdoption: Endpoints vitais para os ciclos de adoção; O primeiro garante o interesse adicionando um adotante provisório (após checagem para impedir que o dono tente adotar o próprio pet); o segundo finaliza o negócio (fechando o status available = false).
+Validação
+TIP
+
+## Você agora já pode testar o fluxo de Pets via Insomnia ou Postman no ambiente local!
+
+### Como testar:
+
+Inicie a API com npm run start (ou o comando de início do seu projeto) dentro de backend.
+Faça Login (/users/login) para obter um Bearer Token de algum usuário existente.
+Envie um form multipart para POST http://localhost:5000/pets/create passando campos como name, age e um arquivo de upload no campo images associado ao header de Autorização de Token.
