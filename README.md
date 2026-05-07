@@ -71,14 +71,14 @@ Envie um form multipart para POST http://localhost:5000/pets/create passando cam
 # Tarefas: [Passe as Terfas para o Backlog em anexo deixei um modelo para cópia!]
 Abaixo estão as 7 tarefas que devem ser executadas para completar a avaliação de Pets.
 
-[x] Task 1: Estruturação das Rotas (PetRoutes.js)
+## [x] Task 1: Estruturação das Rotas (PetRoutes.js)
 
 Instruções:
 Crie o arquivo backend/routers/PetRoutes.js.
 Importe o roteador do Express, os middlewares de validação de token (verify-token.js) e upload de imagens (image-upload.js).
 Exponha as rotas de manipulação do Pet, direcionando as chamadas para os métodos futuros do PetController.
 Vá até backend/index.js e importe PetRoutes.js, configurando o app para usar esse roteador na rota base /pets.
-[x] Task 2: Criação do Pet com Upload Múltiplo (create)
+## [x] Task 2: Criação do Pet com Upload Múltiplo (create)
 
 Instruções:
 Crie o arquivo backend/controllers/PetController.js.
@@ -86,33 +86,33 @@ Implemente o método create responsável por receber name, age, weight e color v
 Valide se todos os dados existem.
 Acesse as imagens através de req.files (que foram interceptadas via middleware multer imageUpload.array('images')).
 Atribua o usuário atual (buscando por token) à propriedade user do Pet, defina available: true, e salve o Pet no banco de dados.
-[x] Task 3: Função de Resgatar todos os Pets (getAll)
+## [x] Task 3: Função de Resgatar todos os Pets (getAll)
 
 Instruções:
 No PetController, implemente o método getAll.
 Realize uma busca no modelo Pet com Pet.find().
 Ordene a listagem por data de criação (sort('-createdAt')).
 Retorne a lista com o status HTTP 200 (OK).
-[x] Task 4: Listagem de Pets e Adoções do Usuário (getAllUserPets e getAllUserAdoptions)
+## [x] Task 4: Listagem de Pets e Adoções do Usuário (getAllUserPets e getAllUserAdoptions)
 
 Instruções:
 Implemente o método getAllUserPets filtrando na busca por Pets em que o id do dono (user._id) seja igual ao ID do usuário do token atual.
 Implemente o método getAllUserAdoptions buscando no banco Pets em que o usuário logado consta na propriedade adopter._id.
 Ambas as buscas devem ser ordenadas do mais recente para o mais antigo.
-[x] Task 5: Busca e Remoção de Pet por ID (getPetById e removePetById)
+## [x] Task 5: Busca e Remoção de Pet por ID (getPetById e removePetById)
 
 Instruções:
 Implemente getPetById: Verifique se o id da URL é válido. Se não for, retorne status 422. Caso o Pet não exista, retorne 404.
 Implemente removePetById: Localize o Pet pelo ID, depois verifique se o usuário que está fazendo a requisição é o mesmo usuário que cadastrou o Pet.
 Somente se o usuário for o dono do Pet, efetue a remoção via Pet.findByIdAndDelete(id).
-[x] Task 6: Atualização do Pet por Endpoint (updatePet)
+## [x] Task 6: Atualização do Pet por Endpoint (updatePet)
 
 Instruções:
 No método updatePet, receba o ID via URL e os dados via form-data.
 Valide se o ID é correto, se o Pet existe e se o usuário autenticado é o real dono dele.
 Modifique as propriedades que foram enviadas com novos valores.
 Caso novas imagens sejam enviadas (array req.files contendo arquivos), limpe as antigas da variável de alteração e recadastre os nomes das novas imagens. Realize a alteração com Pet.findByIdAndUpdate(id, updatedData).
-[x] Task 7: Agendamento e Conclusão de Adoção (schedule e concludeAdoption)
+## [x] Task 7: Agendamento e Conclusão de Adoção (schedule e concludeAdoption)
 
 Instruções:
 Implemente schedule: Valide se o Pet existe e certifique-se de que o dono do Pet não possa agendar uma visita para o próprio animal.
